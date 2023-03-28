@@ -9,7 +9,25 @@ var viewer_modal;
 ]
 
 
+
+
+
 $(function() {
+    var pageString = '[Page(pageNo=1, attachmentBase64="./images/1.png",attachmentType=image/jpeg),Page(pageNo=2, attachmentBase64="./images/2.png",attachmentType=image/jpeg)]';
+
+// Parse the string into a JavaScript array of objects
+var pageArray = $.map(pageString.slice(1, -1).split(','), function(page) {
+    var pageNo = page.match(/pageNo=(\d+)/)[1];
+    var attachmentBase64 = page.match(/attachmentBase64="([^"]*)"/)[1];
+    var attachmentType = page.match(/attachmentType=([\w/-]+)/)[1];
+    return { pageNo: pageNo, attachmentBase64: attachmentBase64, attachmentType: attachmentType };
+  });
+  
+  // Convert the array to a JSON string
+  var jsonPages = JSON.stringify(pageArray);
+  console.log(jsonPages);
+
+
     var  index=0;
     
     $("#btn").click(function(){
